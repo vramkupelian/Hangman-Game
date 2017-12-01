@@ -19,9 +19,6 @@
       color: gray;
     }
 
-    .blank{
-        border-bottom: 1px solid black;
-    }
 
     </style>
     
@@ -29,20 +26,23 @@
 
 <body>
     <!-- Links the js page. js code is there    -->
-    <script type="text/javascript" src = "./assets/javascript/game.js"></script>
+   
+   
+  
 
-    <!-- the "blank" letters -->
 
-    <div class = "guessed-letters"></div>
-    <div class = "guesses-left"></div>
 
-    <div class = "games-won"></div>
-    <div class = "games-lost"></div>
+    <div id = "guessed-letters"></div>
+    
+    <div>Guesses Left: <span id = "guesses-left">7</span></div>
+
+    <div> Games Won: <span id = "games-won">0</span></div>
+    <div> Games Lost: <span id = "games-lost">0</span></div>
 
    
 
-
-
+ <script type="text/javascript" src = "./assets/javascript/game.js">
+ </script>
 
 
 
