@@ -4,9 +4,9 @@ var guessChoices = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o",
 
 //Number of incorrect guesses
 var guessesLeft = 7;
-
 var gamesWon = 0;
 var gamesLost = 0;
+var lettersGuessed = "";
 
 //List of possible words: US presidents , no repeats i.e. Bush comes up once
 var wordPool = ["jefferson","washington","obama","truman","eisenhower","lincoln","jackson","trump","bush","clinton","reagan",
@@ -29,11 +29,28 @@ var wordPool = ["jefferson","washington","obama","truman","eisenhower","lincoln"
     for (var w = 0; w < splitLength; w++) {
         lastDivTiles = document.createElement("div");
         lastDivTiles.id = w; 
-        lastDivTiles.className = splitWord[w];
+        lastDivTiles.className = "tiles";
         lastDivTiles.innerHTML = '-';
         document.body.appendChild(lastDivTiles);
     }
     
+
+    //image stuff
+    var img = new Image();
+     var div = document.getElementById("photo-div");
+    //  img.onload = function() {
+    //    div.appendChild(img);
+    //  };
+
+        img.onload = function() {
+        div.innerHTML += '<img src="'+img.src+'" />'; 
+      };
+    img.src = "assets/images/" + theWord + ".jpg";
+
+
+    //to check if certain text exists in the divs   if you dont find "-" in divs, game won
+
+
     
     //Starts on key up
     document.onkeyup = function (event) {
@@ -43,7 +60,7 @@ var wordPool = ["jefferson","washington","obama","truman","eisenhower","lincoln"
         
         //try to convert caps into lowercase
         var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
-
+console.log(theWord);
 
 //to find indices of all occurrences of a letter and puts index of each occurrence in array
 var indices = [];
@@ -74,10 +91,22 @@ if(splitWord.includes(userGuess)){
 
             //You lose a guess when you guess incorrectly.
             else{
-            guessesLeft = guessesLeft - 1;
-            document.getElementById("guesses-left").innerHTML=guessesLeft;
-            console.log(guessesLeft);
+
+                //check if user has guessed letter previously, if not, do these
+                var noDoubles = lettersGuessed.search(userGuess);
+                if(noDoubles === -1){
+                    
+                    //subtract a guess
+                    guessesLeft = guessesLeft - 1;
+                    document.getElementById("guesses-left").innerHTML = guessesLeft;
+                    console.log(guessesLeft);
+
+                    //shows letters you have guessed
+                    lettersGuessed = lettersGuessed + userGuess + ", ";
+                    document.getElementById("guesses").innerHTML = lettersGuessed;
+                }
             }
+
 
             // you lose if you run out of guesses
             if (guessesLeft === 0){

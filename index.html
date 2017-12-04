@@ -9,15 +9,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <Title>Hangman</Title>
 
-    <h1>Let's play some Hangman!</h1>
+    <h1>Guess that President!</h1>
 
     <style>
      
-     div {
-      font-size: 18px;
-      font-weight: 700;
-      color: gray;
-    }
 
 
     </style>
@@ -25,27 +20,25 @@
 </head>
 
 <body>
-    <!-- Links the js page. js code is there    -->
-   
-   
-  
-
 
 <!-- generic div for placeholder -->
-    <div id = "placeholder"></div>
+    <!-- <div id = "placeholder"></div>-->
+<div class = "container">
+
+    <div class = "score-container">
+        <div class = "scoreboard">Guesses Left: <span id = "guesses-left">7</span></div>
+        <div class = "scoreboard"> Games Won: <span id = "games-won">0</span></div>
+        <div class = "scoreboard"> Games Lost: <span id = "games-lost">0</span></div>
+        <div class = "bad-guesses">Guesses: <span id = "guesses"></span></div>
+    </div>
     
-    <div>Guesses Left: <span id = "guesses-left">7</span></div>
-
-    <div> Games Won: <span id = "games-won">0</span></div>
-    <div> Games Lost: <span id = "games-lost">0</span></div>
-
+    <div id = "photo-div" class = "photo-div"></div>
    
-
+ <!-- Links the js page. js code is there    -->
  <script type="text/javascript" src = "./assets/javascript/game.js">
- </script>
+ </script> 
 
-
-
+</div>
 </body>
 
 
