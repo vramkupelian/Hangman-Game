@@ -1,4 +1,5 @@
 
+
 // These are all the options
 var guessChoices = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
 
@@ -23,15 +24,17 @@ var wordPool = ["jefferson","washington","obama","truman","eisenhower","lincoln"
 // This should split word into array with each letter being an index
     var splitWord = theWord.split("");
     var splitLength = splitWord.length;
-    
-    var lastDivTiles;
+
+
+    var answerField = document.getElementById("answer-field");
     //HOPEFULLY, splits from array into divs
+   
     for (var w = 0; w < splitLength; w++) {
-        lastDivTiles = document.createElement("div");
+       var lastDivTiles = document.createElement("div");
         lastDivTiles.id = w; 
         lastDivTiles.className = "tiles";
         lastDivTiles.innerHTML = '-';
-        document.body.appendChild(lastDivTiles);
+        answerField.appendChild(lastDivTiles);
     }
     
 
@@ -41,7 +44,6 @@ var wordPool = ["jefferson","washington","obama","truman","eisenhower","lincoln"
     //  img.onload = function() {
     //    div.appendChild(img);
     //  };
-
         img.onload = function() {
         div.innerHTML += '<img src="'+img.src+'" />'; 
       };
@@ -69,16 +71,19 @@ for(var a = 0; a < splitLength; a++){
         indices.push(a);
     console.log("Pushing into indices");      
     }
+    else{
+        indices.push("");
+    }
 }
 
-for(b = 0; b < splitLength; b++){
+// for(b = 0; b < splitLength; b++){
 
-    if(splitWord[b]===userGuess){
-        if(lastDivTiles.id===indices[b])
-       // lastDivTiles.innerHTML = userGuess;
-    console.log("let's see");
-    }    
-}
+//     if(splitWord[b]===userGuess){
+//         if(lastDivTiles.id===indices[b])
+//        // lastDivTiles.innerHTML = userGuess;
+//     console.log("let's see");
+//     }    
+// }
 
 //If user's guess is in the word
 if(splitWord.includes(userGuess)){
@@ -87,7 +92,7 @@ if(splitWord.includes(userGuess)){
                 console.log("you've got one");
                 console.log(indices); 
                 }
-            }   
+}   
 
             //You lose a guess when you guess incorrectly.
             else{
@@ -107,18 +112,33 @@ if(splitWord.includes(userGuess)){
                 }
             }
 
+            for (d = 0; d < splitLength; d++){
+            var winCheck = document.getElementById(d);
+            if (winCheck.innerHTML !== "-"){
+                console.log("You win");
+                gamesWon = gamesWon + 1;
+                document.getElementById("games-won").innerhtml = gamesWon;
+                
+            }
+
+            }
+           
+
 
             // you lose if you run out of guesses
             if (guessesLeft === 0){
                 gamesLost = gamesLost + 1;
-                document.getElementById("games-lost").innerHTML=gamesLost;   
+                document.getElementById("games-lost").innerHTML=gamesLost;             
             }
 
             //replaces letter but "Uncaught TypeError: Cannot set property 'innerHTML' of null
             //at HTMLDocument.document.onkeyup"
             for(c = 0 ; c < splitLength ; c++){
-            var idFind = document.getElementById(indices[c]).innerHTML = userGuess ;
-            console.log("fingers crossed");
+                if(indices[c]===0 || indices[0]||indices[c]){
+                    var idFind = document.getElementById(indices[c]).innerHTML = userGuess ;
+                    console.log("fingers crossed");
+                }
+           
 }
                 
 console.log("Made it to end of function");
