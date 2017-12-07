@@ -70,6 +70,8 @@ for(var a = 0; a < splitLength; a++){
     if(splitWord[a]===userGuess) {
         indices.push(a);
     console.log("Pushing into indices");      
+    } else {
+        indices.push['']
     }
     else{
         indices.push("");
@@ -133,6 +135,8 @@ if(splitWord.includes(userGuess)){
 
             //replaces letter but "Uncaught TypeError: Cannot set property 'innerHTML' of null
             //at HTMLDocument.document.onkeyup"
+            console.log({splitLength});
+            console.log({indices});
             for(c = 0 ; c < splitLength ; c++){
                 if(indices[c]===0 || indices[0]||indices[c]){
                     var idFind = document.getElementById(indices[c]).innerHTML = userGuess ;
