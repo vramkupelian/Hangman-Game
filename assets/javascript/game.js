@@ -28,19 +28,23 @@ var wordPool = ["jefferson","washington","obama","truman","eisenhower","lincoln"
 
     var answerField = document.getElementById("answer-field");
     //HOPEFULLY, splits from array into divs
-   
-    for (var w = 0; w < splitLength; w++) {
-       var lastDivTiles = document.createElement("div");
-        lastDivTiles.id = w; 
-        lastDivTiles.className = "tiles";
-        lastDivTiles.innerHTML = '-';
-        answerField.appendChild(lastDivTiles);
+   function makeField(){
+        for (var w = 0; w < splitLength; w++) {
+            var lastDivTiles = document.createElement("div");
+            lastDivTiles.id = w; 
+            lastDivTiles.className = "tiles";
+            lastDivTiles.innerHTML = '-';
+            answerField.appendChild(lastDivTiles);
+        }
     }
     
 
-    //image stuff
-    var img = new Image();
-     var div = document.getElementById("photo-div");
+
+var img = new Image();
+var div = document.getElementById("photo-div");
+
+function getImage(){
+   //image stuff   
     //  img.onload = function() {
     //    div.appendChild(img);
     //  };
@@ -48,35 +52,47 @@ var wordPool = ["jefferson","washington","obama","truman","eisenhower","lincoln"
         div.innerHTML += '<img src="'+img.src+'" />'; 
       };
     img.src = "assets/images/" + theWord + ".jpg";
+}
 
 
-    //to check if certain text exists in the divs   if you dont find "-" in divs, game won
 
+function gameOver(){
 
-    
-    //Starts on key up
-    document.onkeyup = function (event) {
+    gamesLost = gamesLost;
+    gamesWon = gamesWon;
+    lettersGuessed = "";
+    guessesLeft = 7;
+}
+
+function chooseWord (){
+    theWord = wordPool[Math.floor(Math.random() * wordPool.length)];    
+}
+    makeField();
+    getImage();
+    chooseWord();
+//Starts on key up
+document.onkeyup = function (event) {
     
         // Determines which key was pressed.
         //var userGuess = event.key;
         
         //try to convert caps into lowercase
         var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
-console.log(theWord);
+        console.log(theWord);
 
-//to find indices of all occurrences of a letter and puts index of each occurrence in array
-var indices = [];
-for(var a = 0; a < splitLength; a++){
-    if(splitWord[a]===userGuess) {
-        indices.push(a);
-    console.log("Pushing into indices");      
-    } else {
-        indices.push['']
-    }
-    else{
-        indices.push("");
-    }
-}
+        
+
+        //to find indices of all occurrences of a letter and puts index of each occurrence in array
+        var indices = [];
+            for(var a = 0; a < splitLength; a++){
+                if(splitWord[a]===userGuess) {
+                    indices.push(a);
+                    console.log("Pushing into indices");      
+                }
+                else{
+                indices.push("");
+                }
+            }
 
 // for(b = 0; b < splitLength; b++){
 
@@ -114,31 +130,34 @@ if(splitWord.includes(userGuess)){
                 }
             }
 
-            for (d = 0; d < splitLength; d++){
-            var winCheck = document.getElementById(d);
-            if (winCheck.innerHTML !== "-"){
-                console.log("You win");
-                gamesWon = gamesWon + 1;
-                document.getElementById("games-won").innerhtml = gamesWon;
-                
-            }
-
-            }
-           
-
+            
+            // //if there are no tiles with "-". you win
+        //      var winCheck = document.getElementsByClassName("tiles");
+        //      for( d = 0; d < splitLength; d++){
+        //         if (winCheck.textContent !== "-" ){
+        //             console.log("You win");
+        //             console.log( typeof winCheck);
+        //             console.log(winCheck);
+        //             gamesWon = gamesWon + 1;
+        //             console.log("games won = "+ gamesWon);
+        //             document.getElementById("games-won").innerhtml = gamesWon;
+        //            chooseWord();
+        //             console.log(theWord);
+                   
+        //         }
+        //    }      
 
             // you lose if you run out of guesses
             if (guessesLeft === 0){
                 gamesLost = gamesLost + 1;
-                document.getElementById("games-lost").innerHTML=gamesLost;             
+                document.getElementById("games-lost").innerHTML=gamesLost;
+                     
             }
-
+           
             //replaces letter but "Uncaught TypeError: Cannot set property 'innerHTML' of null
             //at HTMLDocument.document.onkeyup"
-            console.log({splitLength});
-            console.log({indices});
             for(c = 0 ; c < splitLength ; c++){
-                if(indices[c]===0 || indices[0]||indices[c]){
+                if(indices[c]===0 || indices[0] || indices[c] ){
                     var idFind = document.getElementById(indices[c]).innerHTML = userGuess ;
                     console.log("fingers crossed");
                 }
@@ -146,4 +165,4 @@ if(splitWord.includes(userGuess)){
 }
                 
 console.log("Made it to end of function");
-}
+};

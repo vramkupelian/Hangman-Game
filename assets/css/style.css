@@ -8,8 +8,12 @@ div{
 
     background-color: red;
     height: 100px;
-    width: 75%;
+    width: auto;
+    margin: auto;
     align-self: center;
+    float: left;
+    
+
 }
 .scoreboard{
     font-family     : Arial;
@@ -61,13 +65,14 @@ text-align: center;
 
 .container {
     border          : 1px double #b1c9c9c9;
+    width: auto;
 }
 
 .photo-div{
     border          : 1px double #b1c9c9;
     height: 400px;
     width: auto;
-    float: left;
+    float: right;
 
 }
 
