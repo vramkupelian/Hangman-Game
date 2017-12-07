@@ -24,9 +24,10 @@ var wordPool = ["jefferson","washington","obama","truman","eisenhower","lincoln"
 // This should split word into array with each letter being an index
     var splitWord = theWord.split("");
     var splitLength = splitWord.length;
-
+    var correct = [];
 
     var answerField = document.getElementById("answer-field");
+   
     //HOPEFULLY, splits from array into divs
    function makeField(){
         for (var w = 0; w < splitLength; w++) {
@@ -37,7 +38,6 @@ var wordPool = ["jefferson","washington","obama","truman","eisenhower","lincoln"
             answerField.appendChild(lastDivTiles);
         }
     }
-    
 
 
 var img = new Image();
@@ -54,23 +54,38 @@ function getImage(){
     img.src = "assets/images/" + theWord + ".jpg";
 }
 
-
-
 function gameOver(){
-
-    gamesLost = gamesLost;
-    gamesWon = gamesWon;
     lettersGuessed = "";
     guessesLeft = 7;
 }
 
 function chooseWord (){
-    theWord = wordPool[Math.floor(Math.random() * wordPool.length)];    
+    theWord = wordPool[Math.floor(Math.random() * wordPool.length)];      
 }
     makeField();
     getImage();
     chooseWord();
-//Starts on key up
+
+    function winCheck() { 
+        // Win condition 
+        var different = false; 
+        for(var i = 0; i < splitLength; i++) { 
+            if(correct[i] !== splitWord[i]) { 
+                different = true;
+            } 
+        } 
+        if(!different) { 
+           gamesWon = gamesWon + 1; 
+            console.log("Games Won: " + gamesWon); 
+            document.getElementById("games-won").innerhtml = gamesWon;
+            console.log("WIN!!!!!!"); 
+            gameOver(); 
+            chooseWord(); 
+           // makeField(); 
+            //getImage(); 
+        } 
+    } 
+    //Starts on key up
 document.onkeyup = function (event) {
     
         // Determines which key was pressed.
@@ -78,8 +93,6 @@ document.onkeyup = function (event) {
         
         //try to convert caps into lowercase
         var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
-        console.log(theWord);
-
         
 
         //to find indices of all occurrences of a letter and puts index of each occurrence in array
@@ -104,14 +117,22 @@ document.onkeyup = function (event) {
 // }
 
 //If user's guess is in the word
-if(splitWord.includes(userGuess)){
-    
-                for(var i=0; i < splitLength; i++){       
-                console.log("you've got one");
-                console.log(indices); 
-                }
-}   
+if(splitWord.includes(userGuess)){            
 
+       //replaces letter 
+       for(c = 0 ; c < splitLength ; c++){
+        if(indices[c]===0 || indices[0] || indices[c] ){
+            var idFind = document.getElementById(indices[c]).innerHTML = userGuess ;
+            correct[c] = userGuess; 
+            console.log("CORRECT: " + correct); 
+            console.log("fingers crossed");
+            winCheck();
+        }
+   
+}
+
+
+ }   
             //You lose a guess when you guess incorrectly.
             else{
 
@@ -151,18 +172,21 @@ if(splitWord.includes(userGuess)){
             if (guessesLeft === 0){
                 gamesLost = gamesLost + 1;
                 document.getElementById("games-lost").innerHTML=gamesLost;
-                     
+                console.log("you lost");  
             }
            
-            //replaces letter but "Uncaught TypeError: Cannot set property 'innerHTML' of null
-            //at HTMLDocument.document.onkeyup"
-            for(c = 0 ; c < splitLength ; c++){
-                if(indices[c]===0 || indices[0] || indices[c] ){
-                    var idFind = document.getElementById(indices[c]).innerHTML = userGuess ;
-                    console.log("fingers crossed");
-                }
+//             //replaces letter 
+//             for(c = 0 ; c < splitLength ; c++){
+//                 if(indices[c]===0 || indices[0] || indices[c] ){
+//                     var idFind = document.getElementById(indices[c]).innerHTML = userGuess ;
+//                     correct[c] = userGuess; 
+//                     console.log("CORRECT: " + correct); 
+//                     console.log("fingers crossed");
+//                     // winCheck();
+//                 }
            
-}
+// }
                 
 console.log("Made it to end of function");
+
 };
