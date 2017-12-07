@@ -25,7 +25,7 @@ var wordPool = ["jefferson","washington","obama","truman","eisenhower","lincoln"
     var splitLength = splitWord.length;
     
     var lastDivTiles;
-    //HOPEFULLY, splits from array into divs
+    //HOPEFULLY, splits from array into divs   instead of appending body, append to div
     for (var w = 0; w < splitLength; w++) {
         lastDivTiles = document.createElement("div");
         lastDivTiles.id = w; 
@@ -68,9 +68,12 @@ for(var a = 0; a < splitLength; a++){
     if(splitWord[a]===userGuess) {
         indices.push(a);
     console.log("Pushing into indices");      
+    } else {
+        indices.push['']
     }
 }
 
+//double check if useful
 for(b = 0; b < splitLength; b++){
 
     if(splitWord[b]===userGuess){
@@ -116,8 +119,13 @@ if(splitWord.includes(userGuess)){
 
             //replaces letter but "Uncaught TypeError: Cannot set property 'innerHTML' of null
             //at HTMLDocument.document.onkeyup"
+            console.log({splitLength});
+            console.log({indices});
             for(c = 0 ; c < splitLength ; c++){
+                console.log(indices[c]);
+                if(indices[c]){
             var idFind = document.getElementById(indices[c]).innerHTML = userGuess ;
+        }
             console.log("fingers crossed");
 }
                 
