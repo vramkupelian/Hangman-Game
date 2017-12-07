@@ -125,7 +125,7 @@ if(splitWord.includes(userGuess)){
                 console.log(indices[c]);
                 if(indices[c]){
             var idFind = document.getElementById(indices[c]).innerHTML = userGuess ;
-        }
+       }
             console.log("fingers crossed");
 }
                 
