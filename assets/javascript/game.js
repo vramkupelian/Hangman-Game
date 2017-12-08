@@ -19,13 +19,20 @@ var wordPool = ["jefferson","washington","obama","truman","eisenhower","lincoln"
 
 
         // This will randomly choose the word for each game
+
+        var theWord;
+        var splitWord;
+        var splitLength;
+
         function chooseWord (){
             theWord = wordPool[Math.floor(Math.random() * wordPool.length)];      
-        }
+            splitWord = theWord.split("");
+        splitLength = splitWord.length;}
         chooseWord();
+
 // This should split word into array with each letter being an index
-    var splitWord = theWord.split("");
-    var splitLength = splitWord.length;
+    
+     
     var correct = [];
 
     var answerField = document.getElementById("answer-field");
@@ -89,13 +96,12 @@ function gameOver(){
             console.log("Games Won: " + gamesWon); 
             document.getElementById("games-won").innerHTML = gamesWon;
             console.log("WIN!!!!!!"); 
+            removeField();
             gameOver(); 
             chooseWord(); 
             console.log(theWord);
             replaceImage();
-            removeField();
             makeField(); 
-            //getImage(); 
         } 
     } 
     //Starts on key up
@@ -119,15 +125,6 @@ document.onkeyup = function (event) {
                 indices.push("");
                 }
             }
-
-// for(b = 0; b < splitLength; b++){
-
-//     if(splitWord[b]===userGuess){
-//         if(lastDivTiles.id===indices[b])
-//        // lastDivTiles.innerHTML = userGuess;
-//     console.log("let's see");
-//     }    
-// }
 
 //If user's guess is in the word
     if(splitWord.includes(userGuess)){            
@@ -161,47 +158,20 @@ document.onkeyup = function (event) {
                 }
             }
 
-            
-            // //if there are no tiles with "-". you win
-        //      var winCheck = document.getElementsByClassName("tiles");
-        //      for( d = 0; d < splitLength; d++){
-        //         if (winCheck.textContent !== "-" ){
-        //             console.log("You win");
-        //             console.log( typeof winCheck);
-        //             console.log(winCheck);
-        //             gamesWon = gamesWon + 1;
-        //             console.log("games won = "+ gamesWon);
-        //             document.getElementById("games-won").innerhtml = gamesWon;
-        //            chooseWord();
-        //             console.log(theWord);
-                   
-        //         }
-        //    }      
-
             // you lose if you run out of guesses
             if (guessesLeft === 0){
                 gamesLost = gamesLost + 1;
                 document.getElementById("games-lost").innerHTML=gamesLost;
                 console.log("you lost");  
-                gameOver();
-                chooseWord();
-                replaceImage();
                 removeField();
-                //makeField();
-
+                gameOver(); 
+                chooseWord(); 
+                console.log(theWord);
+                replaceImage();
+                makeField();         
             }
            
-//             //replaces letter 
-//             for(c = 0 ; c < splitLength ; c++){
-//                 if(indices[c]===0 || indices[0] || indices[c] ){
-//                     var idFind = document.getElementById(indices[c]).innerHTML = userGuess ;
-//                     correct[c] = userGuess; 
-//                     console.log("CORRECT: " + correct); 
-//                     console.log("fingers crossed");
-//                     // winCheck();
-//                 }
-           
-// }
+
                 
 console.log("Made it to end of function");
 
