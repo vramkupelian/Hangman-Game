@@ -14,6 +14,7 @@ div{
     width: auto;
     margin: auto;
     display: inline-block;
+    box-shadow      : 1px 1px 5px -1px #000;
 }
 
 .bigger-field{
@@ -25,7 +26,7 @@ div{
     margin: auto;
     position: absolute;
     align-content: center;
-    top:700px;
+    top:650px;
     /* flex-grow: 1 ; */
 }
 .scoreboard{
@@ -80,13 +81,16 @@ h1{
     height: 40px;
     margin: auto;
     border: 2px solid #326767;
+    position: relative;
+    top: 20px;
+    right: 0px;
 }
 
 
 .photo-div{
     border          : 1px double #b1c9c9;
-    max-height: 400px;
-    width: auto;
+    max-height: auto;
+    max-width: 500px;
     float: right;
     background-color: #562f00;
     border: 2px solid #fcc100;

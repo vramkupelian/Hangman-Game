@@ -19,8 +19,10 @@ var wordPool = ["jefferson","washington","obama","truman","eisenhower","lincoln"
 
 
         // This will randomly choose the word for each game
-        var theWord = wordPool[Math.floor(Math.random() * wordPool.length)];
-
+        function chooseWord (){
+            theWord = wordPool[Math.floor(Math.random() * wordPool.length)];      
+        }
+        chooseWord();
 // This should split word into array with each letter being an index
     var splitWord = theWord.split("");
     var splitLength = splitWord.length;
@@ -29,7 +31,8 @@ var wordPool = ["jefferson","washington","obama","truman","eisenhower","lincoln"
     var answerField = document.getElementById("answer-field");
    
     //HOPEFULLY, splits from array into divs
-   function makeField(){
+  
+    function makeField(){
         for (var w = 0; w < splitLength; w++) {
             var lastDivTiles = document.createElement("div");
             lastDivTiles.id = w; 
@@ -39,32 +42,39 @@ var wordPool = ["jefferson","washington","obama","truman","eisenhower","lincoln"
         }
     }
 
+    makeField();
+
+function removeField(){
+    for(var i =0; i < splitLength; i++){
+ var fieldDiv = document.getElementById("answer-field");
+    var findClasses = document.getElementById(i);
+    fieldDiv.removeChild(findClasses);
+    }
+}
 
 var img = new Image();
 var div = document.getElementById("photo-div");
 
 function getImage(){
-   //image stuff   
-    //  img.onload = function() {
-    //    div.appendChild(img);
-    //  };
         img.onload = function() {
         div.innerHTML += '<img src="'+img.src+'" />'; 
       };
     img.src = "assets/images/" + theWord + ".jpg";
 }
 
+getImage();
+//need this after it picks a new word.
+function replaceImage(){
+    var nextImage = document.createElement("img");
+    nextImage.src = "assets/images/" + theWord + ".jpg";
+    var imageDiv = document.getElementById("photo-div");
+    imageDiv.replaceChild(nextImage, imageDiv.childNodes[0]);
+}
+
 function gameOver(){
     lettersGuessed = "";
     guessesLeft = 7;
 }
-
-function chooseWord (){
-    theWord = wordPool[Math.floor(Math.random() * wordPool.length)];      
-}
-    makeField();
-    getImage();
-    chooseWord();
 
     function winCheck() { 
         // Win condition 
@@ -77,11 +87,14 @@ function chooseWord (){
         if(!different) { 
            gamesWon = gamesWon + 1; 
             console.log("Games Won: " + gamesWon); 
-            document.getElementById("games-won").innerhtml = gamesWon;
+            document.getElementById("games-won").innerHTML = gamesWon;
             console.log("WIN!!!!!!"); 
             gameOver(); 
             chooseWord(); 
-           // makeField(); 
+            console.log(theWord);
+            replaceImage();
+            removeField();
+            makeField(); 
             //getImage(); 
         } 
     } 
@@ -117,22 +130,19 @@ document.onkeyup = function (event) {
 // }
 
 //If user's guess is in the word
-if(splitWord.includes(userGuess)){            
+    if(splitWord.includes(userGuess)){            
 
        //replaces letter 
        for(c = 0 ; c < splitLength ; c++){
-        if(indices[c]===0 || indices[0] || indices[c] ){
-            var idFind = document.getElementById(indices[c]).innerHTML = userGuess ;
-            correct[c] = userGuess; 
-            console.log("CORRECT: " + correct); 
-            console.log("fingers crossed");
-            winCheck();
+            if(indices[c]===0 || indices[0] || indices[c] ){
+                var idFind = document.getElementById(indices[c]).innerHTML = userGuess ;
+                correct[c] = userGuess; 
+                console.log("CORRECT: " + correct); 
+                console.log("fingers crossed");
+                winCheck();
+            }
         }
-   
-}
-
-
- }   
+    }   
             //You lose a guess when you guess incorrectly.
             else{
 
@@ -173,6 +183,12 @@ if(splitWord.includes(userGuess)){
                 gamesLost = gamesLost + 1;
                 document.getElementById("games-lost").innerHTML=gamesLost;
                 console.log("you lost");  
+                gameOver();
+                chooseWord();
+                replaceImage();
+                removeField();
+                //makeField();
+
             }
            
 //             //replaces letter 
